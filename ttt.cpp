@@ -13,7 +13,15 @@ int main() {
 	int row, col;
 	
 	printBoard(board, player1Turn);
+	std::cout << "Enter a row and a column: ";
+	std::cin >> row >> col;
 	
+	while(board[row-1][col-1] != 0) {
+		std::cout <<"Enter a valid, empty row and column choice: ";
+		std::cin >> row >> col;
+	}
+	
+	board[row-1][col-1] = player1Turn ? 1 : -1;
 	
 	return 0;
 }
