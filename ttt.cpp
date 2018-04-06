@@ -1,7 +1,6 @@
 #include <iostream>
 
 void printBoard(int board[3][3], bool player1Turn);
-bool switchPlayer(bool playerTurn);
 int checkWin(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
@@ -10,19 +9,23 @@ int main() {
 	bool player1Turn = true;
 	
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
-	int row, col;
+	int row, col, result = 0;
 	
-	printBoard(board, player1Turn);
-	std::cout << "Enter a row and a column: ";
-	std::cin >> row >> col;
-	
-	while(board[row-1][col-1] != 0) {
-		std::cout <<"Enter a valid, empty row and column choice: ";
+	while(checkWin(board) == 0) {
+		printBoard(board, player1Turn);
+		std::cout << "Enter a row and a column: ";
 		std::cin >> row >> col;
+		
+		while(board[row-1][col-1] != 0) {
+			std::cout <<"Enter a valid, empty row and column choice: ";
+			std::cin >> row >> col;
+		}
+		
+		board[row-1][col-1] = player1Turn ? 1 : -1;
+		//Switch players
+		player1Turn = !player1Turn;
 	}
-	
-	board[row-1][col-1] = player1Turn ? 1 : -1;
-	
+	printBoard(board, player1Turn);
 	return 0;
 }
 
@@ -48,10 +51,6 @@ void printBoard(int board[3][3], bool player1Turn) {
 		}
 		std::cout << std::endl;
 	}
-}
-
-bool switchPlayer(bool playerTurn) {
-	return !playerTurn;
 }
 
 int checkWin(int board[3][3]) {
