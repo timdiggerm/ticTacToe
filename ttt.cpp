@@ -1,16 +1,19 @@
 #include <iostream>
 
-void printBoard(int board[3][3]);
+void printBoard(int board[3][3], int playerTurn);
 
 int main() {
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	
-	printBoard(board);
+	int playerTurn = 1;
+	
+	printBoard(board, playerTurn);
 	
 	return 0;
 }
 
-void printBoard(int board[3][3]) {
+void printBoard(int board[3][3], int playerTurn) {
+	std::cout << std::endl << "Player " << playerTurn << "'s turn" << std::endl;
 	std::cout << std::endl << "   ";
 	//Column headers
 	for(int i = 0; i < 3; i++) {
