@@ -1,13 +1,16 @@
 #include <iostream>
 
+
 void printBoard(int board[3][3], bool player1Turn);
 int checkWin(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
 
+
 int main() {
 	bool player1Turn = true;
 	
+
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
 	
@@ -35,8 +38,18 @@ void printBoard(int board[3][3], bool player1Turn) {
 	} else {
 		std::cout << "Player 2's Turn" << std::endl;
 	}
+	
+	std::cout << std::endl << "   ";
+	//Column headers
 	for(int i = 0; i < 3; i++) {
+		std::cout << " " << i+1 << "  ";
+	}
+	std::cout << std::endl;
+
+	for(int i = 0; i < 3; i++) {
+		std:: cout << " " << i+1 << " "; //Row headers
 		for(int j = 0; j < 3; j++) {
+			//Board uses 0 for unused, 1 for X and -1 for O
 			switch(board[i][j]) {
 				case 0:
 					std::cout << "   ";
@@ -48,8 +61,15 @@ void printBoard(int board[3][3], bool player1Turn) {
 					std::cout << " O ";
 					break;
 			}
+			if(j != 2) {
+				std::cout << "|"; //Lines between the columns
+			}
 		}
 		std::cout << std::endl;
+		if(i != 2) {
+			//Print lines between rows
+			std::cout << "   ---+---+---" << std::endl;
+		}
 	}
 }
 
@@ -87,3 +107,4 @@ int sumRow(int row[3]) {
 int sumCol(int board[3][3], int column) {
 	return board[0][column] + board[1][column] + board[2][column];
 }
+
