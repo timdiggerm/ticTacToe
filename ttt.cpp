@@ -11,6 +11,7 @@ int main() {
 }
 
 void printBoard(int board[3][3]) {
+	std::cout << std::endl;
 	for(int i = 0; i < 3; i++) {
 		for(int j = 0; j < 3; j++) {
 			switch(board[i][j]) {
@@ -24,7 +25,13 @@ void printBoard(int board[3][3]) {
 					std::cout << " O ";
 					break;
 			}
+			if(j != 2) {
+				std::cout << "|";
+			}
 		}
 		std::cout << std::endl;
+		if(i != 2) {
+			std::cout << "-----------" << std::endl;
+		}
 	}
 }
