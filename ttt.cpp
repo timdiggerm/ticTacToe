@@ -5,12 +5,21 @@ void printBoard(int board[3][3], bool player1Turn);
 int checkWin(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
+char play1symbol;
+char play2symbol;
 
 int main() {
+	
+	std::cout << "Player 1, select on the keyboard what symbol you would like?" << std::endl;
+	std::cin >> play1symbol;
+	std::cout << "Player 2, select on the keyboard what symbol you would like?" << std::endl;
+	std::cin >> play2symbol;
+
+	
 	bool player1Turn = true;
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
-
+	
 	while(checkWin(board) == 0) {
 		printBoard(board, player1Turn);
 		std::cout << "Enter a row and a column: ";
@@ -53,10 +62,10 @@ void printBoard(int board[3][3], bool player1Turn) {
 					std::cout << "   ";
 					break;
 				case 1:
-					std::cout << " X ";
+					std::cout <<" " << play1symbol << " ";
 					break;
 				case -1:
-					std::cout << " O ";
+					std::cout <<" " << play2symbol << " ";
 					break;
 			}
 			if(j != 2) {
