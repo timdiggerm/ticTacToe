@@ -9,11 +9,19 @@ char play1symbol;
 char play2symbol;
 
 int main() {
-	
-	std::cout << "Player 1, select on the keyboard what symbol you would like?" << std::endl;
+	//Prompts users to choose a symbol 
+	std::cout << "Player 1, select on the keyboard what symbol you would like." << std::endl;
 	std::cin >> play1symbol;
-	std::cout << "Player 2, select on the keyboard what symbol you would like?" << std::endl;
+	std::cout << "Player 2, select on the keyboard what symbol you would like." << std::endl;
 	std::cin >> play2symbol;
+	
+	if (play1symbol == play2symbol) { //If users select the same symbol
+		std::cout << "Users cannot select identical symbols." <<std:: endl;
+		std::cout << "Player 1, select on the keyboard what symbol you would like" << std::endl;
+		std::cin >> play1symbol;
+		std::cout << "Player 2, select on the keyboard what symbol you would like" << std::endl;
+		std::cin >> play2symbol;
+	}
 
 	
 	bool player1Turn = true;
