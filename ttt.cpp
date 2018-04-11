@@ -5,11 +5,19 @@ void printBoard(int board[3][3], bool player1Turn);
 int checkWin(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
+char player1Char;
+char player2Char;
 
 
 int main() {
-	bool player1Turn = true;
 	
+	std::cout << "Player 1: Enter a symbol you want to use - ";
+	std::cin >> player1Char;
+	
+	std::cout << "Player 2: Enter a symbol you want to use - ";
+	std::cin >> player2Char;
+
+	bool player1Turn = true;
 
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
@@ -28,6 +36,7 @@ int main() {
 		//Switch players
 		player1Turn = !player1Turn;
 	}
+	
 	printBoard(board, player1Turn);
 	return 0;
 }
@@ -55,10 +64,10 @@ void printBoard(int board[3][3], bool player1Turn) {
 					std::cout << "   ";
 					break;
 				case 1:
-					std::cout << " X ";
+					std::cout << " " << player1Char << " ";
 					break;
 				case -1:
-					std::cout << " O ";
+					std::cout << " " << player2Char << " ";
 					break;
 			}
 			if(j != 2) {
