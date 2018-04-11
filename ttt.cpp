@@ -8,27 +8,50 @@ int sumCol(int board[3][3], int column);
 
 int main() {
 	bool player1Turn = true;
-	
+	int p1Score = 0;
+	int p2Score = 0;	
 
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
 
-	
-	while(checkWin(board) == 0) {
-		printBoard(board, player1Turn);
-		std::cout << "Enter a row and a column: ";
-		std::cin >> row >> col;
-		
-		while(board[row-1][col-1] != 0) {
-			std::cout <<"Enter a valid, empty row and column choice: ";
+	while(p1Score < 3 && p2Score < 3){
+		while(checkWin(board) == 0) {
+			printBoard(board, player1Turn);
+			std::cout << "Enter a row and a column: ";
 			std::cin >> row >> col;
+			
+			while(board[row-1][col-1] != 0) {
+				std::cout <<"Enter a valid, empty row and column choice: ";
+				std::cin >> row >> col;
+			}
+		
+			board[row-1][col-1] = player1Turn ? 1 : -1;
+			//Switch players
+			player1Turn = !player1Turn;
+		}
+		printBoard(board, player1Turn);
+		if(checkWin(board) == 1){
+			p1Score++;
+			std::cout << "Player 1 wins the round, and has " << p1Score << " points!\n" << std::endl;
+		}else if(checkWin(board) == -2){
+			std::cout << "It's a tie!\n" << std::endl;
+		}else{
+			p2Score++;
+			std::cout << "Player 2 wins the round, and has " << p2Score << " points!\n" << std::endl;
 		}
 		
-		board[row-1][col-1] = player1Turn ? 1 : -1;
-		//Switch players
-		player1Turn = !player1Turn;
+		for(int x = 0; x < 3; x++){
+			for(int y = 0; y < 3; y++){
+				board[x][y] = 0;
+			}
+		}
+		player1Turn = true;
 	}
-	printBoard(board, player1Turn);
+	if(p1Score == 3){
+		std::cout << "Player 1 wins the game!" << std::endl;
+	}else{
+		std::cout << "Player 2 wins the game!" << std::endl;
+	}
 	return 0;
 }
 
@@ -96,6 +119,18 @@ int checkWin(int board[3][3]) {
 		result = 1;
 	} else if(diagTop < -2 || diagBot < -2) {
 		result = -1;
+	}
+	
+	int count = 0;
+	for(int x = 0; x < 3; x++){
+		for(int y = 0; y < 3; y++){
+			if(board[x][y] == 1 || board[x][y] == -1)
+				count++;
+		}
+	}
+	
+	if(count == 9 && result == 0){
+		result = -2;
 	}
 	
 	return result;
