@@ -32,7 +32,7 @@ void printBoard(int board[3][3], bool player1Turn) {
 	std::cout << std::endl << "   ";
 	//Column headers
 	for(int i = 0; i < 3; i++) {
-		std::cout << " " << i+1 << "  ";
+		std::cout << "  " << i+1 << "  ";
 	}
 	std::cout << std::endl;
 	for(int i = 0; i < 3; i++) {
@@ -51,7 +51,7 @@ void printBoard(int board[3][3], bool player1Turn) {
 					break;
 			}
 			if(j != 2) {
-				std::cout << "|"; //Lines between the columns
+				std::cout << " |"; //Lines between the columns
 			}
 		}
 		std::cout << std::endl;
