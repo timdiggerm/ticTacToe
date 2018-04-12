@@ -1,6 +1,7 @@
 #include <iostream>
 
 void printBoard(int board[3][3], bool player1Turn);
+
 int checkWin(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
@@ -26,6 +27,9 @@ int main() {
 		player1Turn = !player1Turn;
 	}
 	printBoard(board, player1Turn);
+
+
+	
 	return 0;
 }
 
@@ -95,6 +99,13 @@ int checkWin(int board[3][3]) {
 		result = -1;
 	}
 	
+	//Print winner
+	if(result == 1){
+		std::cout << "Player 1 Wins!";
+	}else if(result == -1){
+		std::cout << "Player 2 Wins!";
+	}
+	
 	return result;
 }
 
@@ -105,4 +116,3 @@ int sumRow(int row[3]) {
 int sumCol(int board[3][3], int column) {
 	return board[0][column] + board[1][column] + board[2][column];
 }
-
