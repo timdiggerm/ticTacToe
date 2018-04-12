@@ -1,15 +1,23 @@
 #include <iostream>
+#include <string>
 
-
+using namespace std;
 void printBoard(int board[3][3], bool player1Turn);
 int checkWin(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
+std::string name1;
+std::string name2;
 
 
 int main() {
-	bool player1Turn = true;
+
+	std::cout << "Player 1 Name: ";
+	std::cin >> name1;
+	std::cout << "Player 2 Name: ";
+	std::cin >> name2;	
 	
+	bool player1Turn = true;
 
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
@@ -34,9 +42,9 @@ int main() {
 
 void printBoard(int board[3][3], bool player1Turn) {
 	if(player1Turn) {
-		std::cout << "Player 1's Turn" << std::endl;
+		std::cout << name1 << "'s Turn" << std::endl;
 	} else {
-		std::cout << "Player 2's Turn" << std::endl;
+		std::cout << name2 << "'s Turn" << std::endl;
 	}
 	
 	std::cout << std::endl << "   ";
