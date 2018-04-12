@@ -1,5 +1,4 @@
 #include <iostream>
-
 void printBoard(int board[3][3], bool player1Turn);
 int checkWin(int board[3][3], bool player1Turn);
 int sumRow(int row[3]);
@@ -74,7 +73,7 @@ int checkWin(int board[3][3], bool Player1Turn) {
 				std::cout << "Player 2 wins!" << std::endl;
 			}
 		} else if(rowSum < -2 || colSum < -2) {
-			result = -1;
+			result = 0;
 		}
 	}
 	//Check diagonals for wins
@@ -88,7 +87,7 @@ int checkWin(int board[3][3], bool Player1Turn) {
 			std::cout << "Player 2 wins!" << std::endl;
 		}
 	} else if(diagTop < -2 || diagBot < -2) {
-		result = -1;
+		result = 0;
 	}
 	return result;
 }
