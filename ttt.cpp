@@ -1,14 +1,14 @@
 #include <iostream>
 
 void printBoard(int board[3][3], bool player1Turn);
-int checkWin(int board[3][3]);
+int checkWin(int board[3][3], bool player1Turn);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
+bool player1Turn = true;
 int main() {
-	bool player1Turn = true;
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
-	while(checkWin(board) == 0) {
+	while(checkWin(board, player1Turn) == 0) {
 		printBoard(board, player1Turn);
 		std::cout << "Enter a row and a column: ";
 		std::cin >> row >> col;
@@ -61,13 +61,18 @@ void printBoard(int board[3][3], bool player1Turn) {
 		}
 	}
 }
-int checkWin(int board[3][3]) {
+int checkWin(int board[3][3], bool Player1Turn) {
 	int result = 0;
 	//Check rows and cols for wins
 	for(int i = 0; i < 3; i++) {
 		int rowSum = sumRow(board[i]), colSum = sumCol(board, i);
 		if(rowSum > 2 || colSum > 2) {
 			result = 1;
+			if(player1Turn){
+				std::cout << "Player 1 wins!" << std::endl;
+			}else{
+				std::cout << "Player 2 wins!" << std::endl;
+			}
 		} else if(rowSum < -2 || colSum < -2) {
 			result = -1;
 		}
@@ -77,6 +82,11 @@ int checkWin(int board[3][3]) {
 		diagBot = board[2][0] + board[1][1] + board[0][2];
 	if(diagTop > 2 || diagBot > 2) {
 		result = 1;
+		if(player1Turn){
+			std::cout << "Player 1 wins!" << std::endl;
+		}else{
+			std::cout << "Player 2 wins!" << std::endl;
+		}
 	} else if(diagTop < -2 || diagBot < -2) {
 		result = -1;
 	}
