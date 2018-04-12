@@ -67,7 +67,7 @@ int checkWin(int board[3][3], bool Player1Turn) {
 		int rowSum = sumRow(board[i]), colSum = sumCol(board, i);
 		if(rowSum > 2 || colSum > 2) {
 			result = 1;
-			if(player1Turn){
+			if(!player1Turn){
 				std::cout << "Player 1 wins!" << std::endl;
 			}else{
 				std::cout << "Player 2 wins!" << std::endl;
@@ -81,7 +81,7 @@ int checkWin(int board[3][3], bool Player1Turn) {
 		diagBot = board[2][0] + board[1][1] + board[0][2];
 	if(diagTop > 2 || diagBot > 2) {
 		result = 1;
-		if(player1Turn){
+		if(!player1Turn){
 			std::cout << "Player 1 wins!" << std::endl;
 		}else{
 			std::cout << "Player 2 wins!" << std::endl;
