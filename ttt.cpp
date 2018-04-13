@@ -3,8 +3,8 @@ void printBoard(int board[3][3], bool player1Turn);
 int checkWin(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
-bool player1Turn = true;
 int main() {
+	bool player1Turn = true;
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
 	while(checkWin(board) == 0) {
@@ -20,17 +20,16 @@ int main() {
 		player1Turn = !player1Turn;
 	}
 	printBoard(board, player1Turn);
+	if(!player1Turn){
+		std::cout << "Player 1 wins!" << std::endl;
+	}else{
+		std::cout << "Player 2 wins!" << std::endl;
+	}
 	return 0;
 }
 void printBoard(int board[3][3], bool player1Turn) {
-	if(player1Turn) {
-		std::cout << "Player 1's Turn" << std::endl;
-	} else {
-		std::cout << "Player 2's Turn" << std::endl;
-	}
 	std::cout << std::endl << "   ";
-	//Column headers
-	for(int i = 0; i < 3; i++) {
+	for(int i = 0; i < 3; i++) { //Column headers
 		std::cout << " " << i+1 << "  ";
 	}
 	std::cout << std::endl;
@@ -59,6 +58,11 @@ void printBoard(int board[3][3], bool player1Turn) {
 			std::cout << "   ---+---+---" << std::endl;
 		}
 	}
+	if(player1Turn) {
+		std::cout << "Player 1's Turn" << std::endl;
+	} else {
+		std::cout << "Player 2's Turn" << std::endl;
+	}
 }
 int checkWin(int board[3][3]) {
 	int result = 0;
@@ -67,10 +71,8 @@ int checkWin(int board[3][3]) {
 		int rowSum = sumRow(board[i]), colSum = sumCol(board, i);
 		if(rowSum > 2 || colSum > 2) {
 			result = 1;
-			std::cout << "Player 1 wins!" << std::endl;
 		} else if(rowSum < -2 || colSum < -2) {
 			result = -1;
-			std::cout << "Player 2 wins!" << std::endl;
 		}
 	}
 	//Check diagonals for wins
@@ -78,11 +80,8 @@ int checkWin(int board[3][3]) {
 		diagBot = board[2][0] + board[1][1] + board[0][2];
 	if(diagTop > 2 || diagBot > 2) {
 		result = 1;
-		std::cout << "Player 1 wins!" << std::endl;
-		}
 	} else if(diagTop < -2 || diagBot < -2) {
 		result = -1;
-		std::cout << "Player 2 wins!" << std::endl;
 	}
 	return result;
 }
