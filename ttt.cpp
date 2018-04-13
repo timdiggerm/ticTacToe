@@ -8,8 +8,9 @@ int sumCol(int board[3][3], int column);
 
 
 int main() {
-	bool player1Turn = true;
 	
+	int playerNum;
+	bool player1Turn = true;
 
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
@@ -29,6 +30,15 @@ int main() {
 		player1Turn = !player1Turn;
 	}
 	printBoard(board, player1Turn);
+	
+	if (checkWin(board) == 1){
+		std::cout << "Player 1 Wins!";
+	}else if (checkWin(board) == -1){
+		std::cout << "Player 2 Wins!";
+	}else{
+		std::cout << "It's a draw!";
+	}
+	
 	return 0;
 }
 
@@ -96,7 +106,7 @@ int checkWin(int board[3][3]) {
 	} else if(diagTop < -2 || diagBot < -2) {
 		result = -1;
 	}
-	
+
 	return result;
 }
 
