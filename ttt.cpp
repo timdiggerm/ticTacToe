@@ -1,9 +1,5 @@
 #include <iostream>
-
-void printBoard(int board[3][3], int playerTurn);
-int checkWin(int board[3][3]);
-int sumRow(int row[3]);
-int sumCol(int board[3][3], int column);
+#include "ttt.h"
 
 int main() {
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
