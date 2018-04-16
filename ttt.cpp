@@ -10,13 +10,17 @@ char play2symbol;
 
 
 int main() {
+	//
 	//Prompts users to choose a symbol 
+	//
 	std::cout << "Player 1, select on the keyboard what symbol you would like." << std::endl;
 	std::cin >> play1symbol;
 	std::cout << "Player 2, select on the keyboard what symbol you would like." << std::endl;
 	std::cin >> play2symbol;
-	
-	if (play1symbol == play2symbol) { //If users select the same symbol
+	//
+	//If users select the same symbol
+	//
+	if (play1symbol == play2symbol) { 
 		while (play1symbol == play2symbol) {
 			std::cout << "Users cannot select identical symbols." <<std:: endl;
 			std::cout << "Player 1, select on the keyboard what symbol you would like" << std::endl;
@@ -46,6 +50,7 @@ int main() {
 		player1Turn = !player1Turn;
 	}
 	printBoard(board, player1Turn);
+	
 	return 0;
 }
 
