@@ -35,7 +35,7 @@ int main() {
 		std::cout << "Player 1 Wins!";
 	}else if (checkWin(board) == -1){
 		std::cout << "Player 2 Wins!";
-	}else{
+	}else if (checkWin(board) == -2){
 		std::cout << "It's a draw!";
 	}
 	
@@ -94,7 +94,7 @@ int checkWin(int board[3][3]) {
 			result = 1;
 		} else if(rowSum < -2 || colSum < -2) {
 			result = -1;
-		}
+		} 
 	}
 	
 	//Check diagonals for wins
@@ -105,6 +105,18 @@ int checkWin(int board[3][3]) {
 		result = 1;
 	} else if(diagTop < -2 || diagBot < -2) {
 		result = -1;
+	}
+	
+	int count = 0;
+	for(int x = 0; x < 3; x++){
+		for(int y = 0; y < 3; y++){
+			if(board[x][y] == 1 || board[x][y] == -1)
+				count++;
+		}
+	}
+	
+	if(count == 9 && result == 0){
+		result = -2;
 	}
 
 	return result;
