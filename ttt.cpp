@@ -1,14 +1,19 @@
 #include <iostream>
 #include "ttt.h"
+#include <string>
+ 
 
-
+using namespace std;
 void printBoard(int board[3][3], bool player1Turn);
 int checkWin(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
+ 
 char player1Char;
 char player2Char;
-
+ 
+std::string name1;
+std::string name2;
 
 int main() {
 	
@@ -17,6 +22,14 @@ int main() {
 	
 	std::cout << "Player 2: Enter a symbol you want to use - ";
 	std::cin >> player2Char;
+
+	std::cout << "Player 1 Name: ";
+	std::cin >> name1;
+	std::cout << "Player 2 Name: ";
+	std::cin >> name2;	
+	
+	bool player1Turn = true;
+ 
 
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
@@ -46,8 +59,16 @@ int main() {
 	return 0;
 }
 
+ 
 void printBoard(int board[3][3], int playerTurn) {
-	std::cout << std::endl << "Player " << playerTurn << "'s turn" << std::endl;
+
+	if(playerTurn == 1) {
+		std::cout << name1 << "'s Turn" << std::endl;
+	} else {
+		std::cout << name2 << "'s Turn" << std::endl;
+	}
+	
+ 
 	std::cout << std::endl << "   ";
 	//Column headers
 	for(int i = 0; i < 3; i++) {
