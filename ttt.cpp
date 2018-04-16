@@ -1,10 +1,39 @@
 #include <iostream>
-#include "ttt.h"
+
+
+void printBoard(int board[3][3], int playerTurn);
+int checkWin(int board[3][3]);
+int sumRow(int row[3]);
+int sumCol(int board[3][3], int column);
+char play1symbol;
+char play2symbol;
+
 
 int main() {
+	//
+	//Prompts users to choose a symbol 
+	//
+	std::cout << "Player 1, select on the keyboard what symbol you would like." << std::endl;
+	std::cin >> play1symbol;
+	std::cout << "Player 2, select on the keyboard what symbol you would like." << std::endl;
+	std::cin >> play2symbol;
+	//
+	//If users select the same symbol
+	//
+	if (play1symbol == play2symbol) { 
+		while (play1symbol == play2symbol) {
+			std::cout << "Users cannot select identical symbols." <<std:: endl;
+			std::cout << "Player 1, select on the keyboard what symbol you would like" << std::endl;
+			std::cin >> play1symbol;
+			std::cout << "Player 2, select on the keyboard what symbol you would like" << std::endl;
+			std::cin >> play2symbol;
+		}
+	}
+
+	
+	int playerTurn = 1;
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
-	int playerTurn = 1;
 	
 	while(checkWin(board) == 0) {
 		printBoard(board, playerTurn);
@@ -25,6 +54,7 @@ int main() {
 		}
 	}
 	printBoard(board, playerTurn);
+	
 	return 0;
 }
 
@@ -45,10 +75,10 @@ void printBoard(int board[3][3], int playerTurn) {
 					std::cout << "   ";
 					break;
 				case 1:
-					std::cout << " X ";
+					std::cout <<" " << play1symbol << " ";
 					break;
 				case -1:
-					std::cout << " O ";
+					std::cout <<" " << play2symbol << " ";
 					break;
 			}
 			if(j != 2) {
