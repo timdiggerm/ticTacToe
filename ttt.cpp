@@ -1,21 +1,13 @@
 #include <iostream>
-
-
-void printBoard(int board[3][3], bool player1Turn);
-int checkWin(int board[3][3]);
-int sumRow(int row[3]);
-int sumCol(int board[3][3], int column);
-
+#include "ttt.h"
 
 int main() {
-	bool player1Turn = true;
-	
-
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
+	int playerTurn = 1;
 	
 	while(checkWin(board) == 0) {
-		printBoard(board, player1Turn);
+		printBoard(board, playerTurn);
 		std::cout << "Enter a row and a column: ";
 		std::cin >> row >> col;
 		
@@ -24,28 +16,26 @@ int main() {
 			std::cin >> row >> col;
 		}
 		
-		board[row-1][col-1] = player1Turn ? 1 : -1;
+		board[row-1][col-1] = playerTurn == 1 ? 1 : -1;
 		//Switch players
-		player1Turn = !player1Turn;
+		if(playerTurn == 1) {
+			playerTurn = 2;
+		}  else {
+			playerTurn = 1;
+		}
 	}
-	printBoard(board, player1Turn);
+	printBoard(board, playerTurn);
 	return 0;
 }
 
-void printBoard(int board[3][3], bool player1Turn) {
-	if(player1Turn) {
-		std::cout << "Player 1's Turn" << std::endl;
-	} else {
-		std::cout << "Player 2's Turn" << std::endl;
-	}
-	
+void printBoard(int board[3][3], int playerTurn) {
+	std::cout << std::endl << "Player " << playerTurn << "'s turn" << std::endl;
 	std::cout << std::endl << "   ";
 	//Column headers
 	for(int i = 0; i < 3; i++) {
 		std::cout << " " << i+1 << "  ";
 	}
 	std::cout << std::endl;
-
 	for(int i = 0; i < 3; i++) {
 		std:: cout << " " << i+1 << " "; //Row headers
 		for(int j = 0; j < 3; j++) {
@@ -107,4 +97,3 @@ int sumRow(int row[3]) {
 int sumCol(int board[3][3], int column) {
 	return board[0][column] + board[1][column] + board[2][column];
 }
-
