@@ -3,10 +3,16 @@ void printBoard(int board[3][3], bool player1Turn);
 int checkWin(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
+int turns = 0;
+char symbol1, symbol2;
 int main() {
 	bool player1Turn = true;
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
+	std::cout << "Player 1, choose your marker: ";
+	std::cin >> symbol1;
+	std::cout << "Player 2, choose your marker: ";
+	std::cin >> symbol2;
 	while(checkWin(board) == 0) {
 		printBoard(board, player1Turn);
 		std::cout << "Enter a row and a column: ";
@@ -18,11 +24,15 @@ int main() {
 		board[row-1][col-1] = player1Turn ? 1 : -1;
 		//Switch players
 		player1Turn = !player1Turn;
+		turns++;
+		std::cout << "Turn #: " << turns << std::endl;
 	}
 	printBoard(board, player1Turn);
-	if(!player1Turn){
+	if(checkWin(board) == -2){
+		std::cout << "It's a tie!" << std::endl;
+	}else if(!player1Turn){
 		std::cout << "Player 1 wins!" << std::endl;
-	}else{
+	}else if(player1Turn){
 		std::cout << "Player 2 wins!" << std::endl;
 	}
 	return 0;
@@ -42,10 +52,10 @@ void printBoard(int board[3][3], bool player1Turn) {
 					std::cout << "   ";
 					break;
 				case 1:
-					std::cout << " X ";
+					std::cout << " " << symbol1 << " ";
 					break;
 				case -1:
-					std::cout << " O ";
+					std::cout << " " << symbol2 << " ";
 					break;
 			}
 			if(j != 2) {
@@ -82,6 +92,16 @@ int checkWin(int board[3][3]) {
 		result = 1;
 	} else if(diagTop < -2 || diagBot < -2) {
 		result = -1;
+	}
+	int counter = 0;
+	for(int x = 0; x < 3; x++){
+		for(int y = 0; y < 3; y++){
+			if(board[x][y] == 1 || board[x][y] == -1)
+				counter++;
+		}
+	}
+	if(counter == 9 && (result != 1 || result != -1)){
+		result = -2;
 	}
 	return result;
 }
