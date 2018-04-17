@@ -1,13 +1,13 @@
 #include <iostream>
 
-void printBoard(int board[3][3], bool player1Turn);
+void printBoard(int board[3][3], int player1Turn);
 int checkWin(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
 
 
 int main() {
-	bool player1Turn = true;
+	bool player1Turn = 1;
 	int p1Score = 0;
 	int p2Score = 0;	
 
@@ -27,7 +27,11 @@ int main() {
 		
 			board[row-1][col-1] = player1Turn ? 1 : -1;
 			//Switch players
-			player1Turn = !player1Turn;
+			if(player1Turn == 1){
+				player1Turn = 0;
+			}else{
+				player1Turn = 1; 
+			}
 		}
 		printBoard(board, player1Turn);
 		if(checkWin(board) == 1){
@@ -45,7 +49,7 @@ int main() {
 				board[x][y] = 0;
 			}
 		}
-		player1Turn = true;
+		player1Turn = 1;
 	}
 	if(p1Score == 3){
 		std::cout << "Player 1 wins the game!" << std::endl;
@@ -56,8 +60,8 @@ int main() {
 }
 
 
-void printBoard(int board[3][3], bool player1Turn) {
-	if(player1Turn) {
+void printBoard(int board[3][3], int player1Turn) {
+	if(player1Turn == 1) {
 		std::cout << "Player 1's Turn" << std::endl;
 	} else {
 		std::cout << "Player 2's Turn" << std::endl;
