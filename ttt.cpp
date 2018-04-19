@@ -1,7 +1,9 @@
 #include <iostream>
 
+int turnCounter = 1;
 void printBoard(int board[3][3], bool player1Turn);
 int checkWin(int board[3][3]);
+int checkDraw(int board[3][3]);
 int sumRow(int row[3]);
 int sumCol(int board[3][3], int column);
 
@@ -21,21 +23,36 @@ int main() {
 			std::cout <<"Enter a valid, empty row and column choice: ";
 			std::cin >> row >> col;
 		}
-		
+		turnCounter++;
 		board[row-1][col-1] = player1Turn ? 1 : -1;
 		//Switch players
 		player1Turn = !player1Turn;
+	
+		
 	}
+
 	printBoard(board, player1Turn);
+	
+	
+	if (checkWin(board) == -2) {
+		std::cout << "It's a tie.";
+	} else if (checkWin(board) == 1) {
+		std::cout << "Player 1 wins.";
+	} else if (checkWin(board) == -1) {
+		std::cout << "Player 2 wins.";
+	}
+	
 	return 0;
+	
 }
+
 
 
 void printBoard(int board[3][3], bool player1Turn) {
 	if(player1Turn) {
-		std::cout << "Player 1's Turn" << std::endl;
+		std::cout <<  "Round: " << turnCounter << " Player 1's Turn" <<std::endl;
 	} else {
-		std::cout << "Player 2's Turn" << std::endl;
+		std::cout <<  "Round: " << turnCounter << " Player 2's Turn" << std::endl;
 	}
 
 	std::cout << std::endl;
@@ -68,6 +85,11 @@ void printBoard(int board[3][3], bool player1Turn) {
 }
 
 
+	
+
+
+
+
 int checkWin(int board[3][3]) {
 	int result = 0;
 	
@@ -77,9 +99,11 @@ int checkWin(int board[3][3]) {
 		int rowSum = sumRow(board[i]), colSum = sumCol(board, i);
 		if(rowSum > 2 || colSum > 2) {
 			result = 1;
+			
 		} else if(rowSum < -2 || colSum < -2) {
 			result = -1;
-		}
+			
+		} 
 	}
 	
 	//Check diagonals for wins
@@ -88,12 +112,28 @@ int checkWin(int board[3][3]) {
 			
 	if(diagTop > 2 || diagBot > 2) {
 		result = 1;
+		
 	} else if(diagTop < -2 || diagBot < -2) {
+		
 		result = -1;
+	}
+	
+	int Counter  = 1; 
+
+	for(int x = 0; x < 3; x++){
+		for(int y = 0; y < 3; y++){
+			if(board[x][y] == 1 || board[x][y] == -1)
+				Counter++;
+		}
+	}
+	if ((Counter == 10) && (result != 1 || result != -1)) {
+		result = -2;
 	}
 	
 	return result;
 }
+
+
 
 int sumRow(int row[3]) {
 	return row[0] + row[1] + row[2];
