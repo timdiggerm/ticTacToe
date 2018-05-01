@@ -1,19 +1,36 @@
 #include <iostream>
-void printBoard(int board[3][3], int playerTurn);
-int checkWin(int board[3][3]);
-int sumRow(int row[3]);
-int sumCol(int board[3][3], int column);
+#include "ttt.h"
+
+char play1symbol;
+char play2symbol;
+
 int turns = 0;
-char symbol1, symbol2;
 int main() {
 	int playerTurn = 1;
 	int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 	int row, col, result = 0;
-	std::cout << "Player 1, choose your marker: ";
-	std::cin >> symbol1;
-	std::cout << "Player 2, choose your marker: ";
-	std::cin >> symbol2;
-	while(checkWin(board) == 0) {
+
+	//
+	//Prompts users to choose a symbol 
+	//
+	std::cout << "Player 1, select on the keyboard what symbol you would like." << std::endl;
+	std::cin >> play1symbol;
+	std::cout << "Player 2, select on the keyboard what symbol you would like." << std::endl;
+	std::cin >> play2symbol;
+	//
+	//If users select the same symbol
+	//
+	if (play1symbol == play2symbol) { 
+		while (play1symbol == play2symbol) {
+			std::cout << "Users cannot select identical symbols." <<std:: endl;
+			std::cout << "Player 1, select on the keyboard what symbol you would like" << std::endl;
+			std::cin >> play1symbol;
+			std::cout << "Player 2, select on the keyboard what symbol you would like" << std::endl;
+			std::cin >> play2symbol;
+		}
+	}
+
+  while(checkWin(board) == 0) {
 		printBoard(board, playerTurn);
 		std::cout << "Enter a row and a column: ";
 		std::cin >> row >> col;
@@ -32,6 +49,7 @@ int main() {
 		std::cout << "Turn #: " << turns << std::endl;
 	}
 	printBoard(board, playerTurn);
+
 	if(checkWin(board) == -2){
 		std::cout << "It's a tie!" << std::endl;
 	}else if(playerTurn == 2){
@@ -39,6 +57,7 @@ int main() {
 	}else if(playerTurn == 1){
 		std::cout << "Player 2 wins!" << std::endl;
 	}
+
 	return 0;
 }
 
@@ -58,10 +77,10 @@ void printBoard(int board[3][3], int playerTurn) {
 					std::cout << "   ";
 					break;
 				case 1:
-					std::cout << " " << symbol1 << " ";
+					std::cout <<" " << play1symbol << " ";
 					break;
 				case -1:
-					std::cout << " " << symbol2 << " ";
+					std::cout <<" " << play2symbol << " ";
 					break;
 			}
 			if(j != 2) {
