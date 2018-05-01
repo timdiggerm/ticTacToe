@@ -1,13 +1,8 @@
 #include <iostream>
+#include "ttt.h"
 
-
-void printBoard(int board[3][3], int playerTurn);
-int checkWin(int board[3][3]);
-int sumRow(int row[3]);
-int sumCol(int board[3][3], int column);
 char play1symbol;
 char play2symbol;
-
 
 int main() {
 	//
