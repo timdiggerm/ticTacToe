@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ttt.h"
 
+
 char play1symbol;
 char play2symbol;
 int rowCount = 3;
@@ -12,6 +13,8 @@ int turns = 0;
 int main() {
 	int playerTurn = 1;
 	int row, col, result = 0;
+	int p1Score = 0;
+	int p2Score = 0;
 
 	//
 	//Prompts users to choose a symbol 
@@ -37,14 +40,35 @@ int main() {
 	int** board = new int*[rowCount]; //initializes a board to create dimensions with desired row & columns
 	for(int i = 0; i < rowCount; ++i)
 		board[i] = new int[colCount];
-	
-	while(checkWin(board) == 0) {
-		printBoard(board, playerTurn);
-		std::cout << "Enter a row and a column: ";
-		std::cin >> row >> col;
-		while(board[row-1][col-1] != 0) {
-			std::cout <<"Enter a valid, empty row and column choice: ";
+
+	while(p1Score < 3 && p2Score < 3){
+		while(checkWin(board) == 0) {
+			printBoard(board, playerTurn);
+			std::cout << "Enter a row and a column: ";
 			std::cin >> row >> col;
+			
+			while(board[row-1][col-1] != 0) {
+				std::cout <<"Enter a valid, empty row and column choice: ";
+				std::cin >> row >> col;
+			}
+		
+			board[row-1][col-1] = playerTurn == 1 ? 1 : -1;
+			//Switch players
+			if(playerTurn == 1){
+				playerTurn = 0;
+			}else{
+				playerTurn = 1; 
+			}
+		}
+		printBoard(board, playerTurn);
+		if(checkWin(board) == 1){
+			p1Score++;
+			std::cout << "Player 1 wins the round, and has " << p1Score << " points!\n" << std::endl;
+		}else if(checkWin(board) == -2){
+			std::cout << "It's a tie!\n" << std::endl;
+		}else{
+			p2Score++;
+			std::cout << "Player 2 wins the round, and has " << p2Score << " points!\n" << std::endl;
 		}
 		board[row-1][col-1] = playerTurn == 1 ? 1 : -1;
 		//Switch players
@@ -55,17 +79,29 @@ int main() {
 		}
 		turns++;
 		std::cout << "Turn #: " << turns << std::endl;
-	}
-	printBoard(board, playerTurn);
+	
+		printBoard(board, playerTurn);
+	
+		if(checkWin(board) == -2){
+			std::cout << "It's a tie!" << std::endl;
+		}else if(playerTurn == 2){
+			std::cout << "Player 1 wins!" << std::endl;
+		}else if(playerTurn == 1){
+			std::cout << "Player 2 wins!" << std::endl;
+		}
 
-	if(checkWin(board) == -2){
-		std::cout << "It's a tie!" << std::endl;
-	}else if(playerTurn == 2){
-		std::cout << "Player 1 wins!" << std::endl;
-	}else if(playerTurn == 1){
-		std::cout << "Player 2 wins!" << std::endl;
+		for(int x = 0; x < 3; x++){
+			for(int y = 0; y < 3; y++){
+				board[x][y] = 0;
+			}
+		}
+		playerTurn = 1;
 	}
-
+	if(p1Score == 3){
+		std::cout << "Player 1 wins the game!" << std::endl;
+	}else{
+		std::cout << "Player 2 wins the game!" << std::endl;
+	}
 	return 0;
 }
 
@@ -76,6 +112,7 @@ void boardSize(){
 	rowCount = rowNew;
 	colCount = columnNew;
 }
+
 
 void printBoard(int** board, int playerTurn) {
 
@@ -152,15 +189,17 @@ int checkWin(int** board) {
 		result = -1;
 	}
 	int counter = 0;
-	for(int x = 0; x < 3; x++){
-		for(int y = 0; y < 3; y++){
+	for(int x = 0; x < rowCount; x++){
+		for(int y = 0; y < colCount; y++){
 			if(board[x][y] == 1 || board[x][y] == -1)
 				counter++;
 		}
 	}
-	if(counter == 9 && (result != 1 || result != -1)){
+
+	if(counter == 9 && result == 0){
 		result = -2;
 	}
+	
 	return result;
 }
 
@@ -177,4 +216,3 @@ int sumCol(int** board, int column) {
 	}
 	
 }
-
