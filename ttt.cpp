@@ -9,6 +9,7 @@ int colCount = 3;
 int diagTop;
 int diagBot;
 int turns = 0;
+int turnCounter = 1;
 
 int main() {
 	int playerTurn = 1;
@@ -51,7 +52,7 @@ int main() {
 				std::cout <<"Enter a valid, empty row and column choice: ";
 				std::cin >> row >> col;
 			}
-		
+			turnCounter++;
 			board[row-1][col-1] = playerTurn == 1 ? 1 : -1;
 			//Switch players
 			if(playerTurn == 1){
@@ -103,6 +104,7 @@ int main() {
 		std::cout << "Player 2 wins the game!" << std::endl;
 	}
 	return 0;
+	
 }
 
 void boardSize(){
@@ -117,9 +119,9 @@ void boardSize(){
 void printBoard(int** board, int playerTurn) {
 
 	if(playerTurn == 1) {
-		std::cout << "Player 1's Turn" << std::endl;
+		std::cout << "Round: " << turnCounter << "  Player 1's Turn" << std::endl;
 	} else {
-		std::cout << "Player 2's Turn" << std::endl;
+		std::cout << "Round: " << turnCounter << "  Player 2's Turn" << std::endl;
 	}
 
 	std::cout << std::endl << "   ";
@@ -172,7 +174,8 @@ int checkWin(int** board) {
 			result = 1;
 		} else if(rowSum < 0-(rowCount-1) || colSum < 0-(colCount-1)) {
 			result = -1;
-		}
+			
+		} 
 	}
 	//Check diagonals for wins
 	for(int i = board[0][0]; i < board[rowCount -2][colCount-1]; i++){
@@ -197,6 +200,18 @@ int checkWin(int** board) {
 	}
 
 	if(counter == 9 && result == 0){
+		result = -2;
+	}
+	
+	int Counter  = 1; 
+
+	for(int x = 0; x < 3; x++){
+		for(int y = 0; y < 3; y++){
+			if(board[x][y] == 1 || board[x][y] == -1)
+				Counter++;
+		}
+	}
+	if ((Counter == 10) && (result != 1 || result != -1)) {
 		result = -2;
 	}
 	
